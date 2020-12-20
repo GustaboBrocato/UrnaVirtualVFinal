@@ -85,7 +85,7 @@ public class Main {
             String[] botones = {"Alcalde", "Diputadura", "Presidencia"};
 
             eleccion = 1 + JOptionPane.showOptionDialog(null, "Pulse el boton de la Candidatura a la que Aspira:", "Bienvenido a las Inscripciones de Candidatura", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, botones, botones[0]);
-
+            Patron.salir(eleccion);
 
             switch (eleccion) {
                 case 1:
@@ -172,7 +172,7 @@ public class Main {
                             + "16. Santa Barbara\n"
                             + "17. Valle\n"
                             + "18. Yoro\n"));
-
+            patron.salir(indiceDepartamento);
             if (indiceDepartamento > 0 || indiceDepartamento < 19) {
                 municipalidadPostulada = Departamentos(indiceDepartamento);
             } else {
@@ -188,6 +188,7 @@ public class Main {
         // System.out.println("Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
         // cedula = r.nextLine();
         cedula = JOptionPane.showInputDialog("Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
+        patron.salirString(cedula);
         existe = verificarListaVotante(r, cedula, tipo, municipalidadPostulada);
         if (existe == true) {
             //System.out.println("Usted ya ha votado en la municipalidad " + municipalidadPostulada + ".");
@@ -304,7 +305,7 @@ public class Main {
 
                     String[] botones = {nombres[0]+" "  + apellidos[0] +" "+ partidos[0]};
                     voto = 1+JOptionPane.showOptionDialog(null,"Pulse el boton del candidato por el que desea Votar:","Bienvenido al sistema de votacion virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null,botones, botones[0]);
-
+                    patron.salir(voto);
                     repetir = confirmarVoto(r, voto, nombres, apellidos, partidos);
                     if (repetir == true) {
                         nombreArchivo = archivos[voto - 1];
@@ -321,7 +322,7 @@ public class Main {
                         voto = r.nextInt();*/
                     String[] botones = {nombres[0]+" "  + apellidos[0] +" "+ partidos[0],nombres[1] +" "+ apellidos[1] +" " + partidos[1]};
                     voto = 1+JOptionPane.showOptionDialog(null,"Pulse el boton del candidato por el que desea Votar:","Bienvenido al sistema de votacion virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null,botones, botones[0]);
-
+                    patron.salir(voto);
                     repetir = confirmarVoto(r, voto, nombres, apellidos, partidos);
                     if (repetir == true) {
                         nombreArchivo = archivos[voto - 1];
@@ -338,7 +339,7 @@ public class Main {
                         voto = r.nextInt();*/
                     String[] botones = {nombres[0]+" "  + apellidos[0] +" "+ partidos[0],nombres[1] +" "+ apellidos[1] +" " + partidos[1],nombres[2] + " "+ apellidos[2] +" " + partidos[2]};
                     voto = 1+JOptionPane.showOptionDialog(null,"Pulse el boton del candidato por el que desea Votar:","Bienvenido al sistema de votacion virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null,botones, botones[0]);
-
+                    patron.salir(voto);
                     repetir = confirmarVoto(r, voto, nombres, apellidos, partidos);
                     if (repetir == true) {
                         nombreArchivo = archivos[voto - 1];
@@ -369,12 +370,13 @@ public class Main {
         File archivo;
         FileWriter agregar;
         PrintWriter escribir;
-
+        Administrador patron = new Administrador();
         //System.out.println("Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
         //cedula =
         cedula = JOptionPane.showInputDialog(
                 "Sistema de voto virtual para la Presidencia\n"
                         +"Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
+        patron.salirString(cedula);
         existe=verificarListaVotante(r,cedula,tipo,municipalidadPostulada);
         if(existe==true){
             //System.out.println("Usted ya ha votado para la presidencia.");
@@ -496,7 +498,7 @@ public class Main {
                     nombreArchivo = archivos[voto - 1];
                     castVote(tipo,tipoCandidatura, nombreArchivo,indiceDepartamento);
                     repetir = false;
-                }else{
+                }else if (repetir==false){
                     repetir = true;
                 }
 
@@ -564,9 +566,11 @@ public class Main {
         /*r.nextLine();
         System.out.println("Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
         cedula = r.nextLine();*/
+        Administrador patron = new Administrador();
         cedula = JOptionPane.showInputDialog(
                 "Sistema de voto virtual para la Diputadura\n"
                         +"Porfavor ingrese su numero de identidad: en el siguiente formato: (0000-1990-01234)");
+        patron.salirString(cedula);
         existe=verificarListaVotante(r,cedula,tipo,municipalidadPostulada);
         if(existe==true){
             //System.out.println("Usted ya ha votado para la Diputadura");
@@ -629,7 +633,7 @@ public class Main {
                 //System.out.println("Sus votos han sido agregados.");
                 JOptionPane.showMessageDialog(null,"Sus votos han sido agregados.");
                 AgregarListaVotante(r,tipo,municipalidadPostulada,cedula);
-            } else{
+            } else if (terminar == false){
                 //System.out.println("error");
                 JOptionPane.showMessageDialog(null,"Error");
                 votacionDiputadura(indiceDepartamento);
@@ -641,6 +645,7 @@ public class Main {
     public static boolean confirmarVoto(Scanner r,int voto,String[]nombres,String[]apellidos,String[]partidos){
         boolean confirmacion=false;
         int eleccion;
+        Administrador patron = new Administrador();
         /*System.out.println("Porfavor confirme su voto: "+nombres[voto-1]+" "+apellidos[voto-1]+" "+partidos[voto-1]);
         System.out.println("1. Confirmar\t\t\t2. Regresar");
         eleccion = r.nextInt();*/
@@ -650,6 +655,7 @@ public class Main {
                         + nombres [voto - 1 ] + "  " + apellidos [voto - 1 ] + "  " + partidos [voto - 1 ] + "\n"
                         +"1. Confirmar\n"
                         +"2. Regresar \n" ));
+        patron.salir(eleccion);
 
         if(eleccion==1){
             confirmacion = true;
@@ -921,6 +927,7 @@ public class Main {
         Scanner r = new Scanner(System.in);
         boolean elegible = false;
         int nacimiento,derechos,edad,cargoEjercido,fuerzasArmadasJefes,fuerzasArmadasSuperior;
+        Administrador patron = new Administrador();
         /*System.out.println("Bienvenido al punto de elegibilidad Presidencial");
         System.out.println("------------------------------------------------");
         System.out.println(" ");*/
@@ -936,10 +943,12 @@ public class Main {
                 "Es usted Hondureño por nacimiento?\n"
                         + "1. Si\n"
                         + "2. No\n"));
+        patron.salir(nacimiento);
         /*System.out.println("Porfavor ingrese su edad: ");
         edad = r.nextInt();*/
         edad = Integer.parseInt(JOptionPane.showInputDialog(
                 "Porfavor ingrese su edad:"));
+        patron.salir(edad);
         /*System.out.println("Esta usted en el goce de los derechos del ciudadano? ");
         System.out.println(" ");
         System.out.println("1. Si                                         2. No");
@@ -948,6 +957,7 @@ public class Main {
                 "Esta usted en el goce de los derechos del ciudadano?\n"
                         + "1. Si\n"
                         + "2. No\n"));
+        patron.salir(derechos);
         /*System.out.println("Ejerce usted alguno de los siguientes cargos: o\tLos Designados presidenciales; Secretarios y Subsecretarios de Estado, \nConsejeros del Consejo Nacional Electoral, Magistrados del Tribunal de Justicia Electoral, Magistrados y Jueces \ndel Poder Judicial; Presidentes, Vicepresidentes, Gerentes, Subgerentes, Directores, Subdirectores, Secretarios Ejecutivos \nde Instituciones Descentralizadas; Procurador(a) y Subprocurador(a) General de la República y Magistrados del Tribunal \nSuperior de Cuentas que hayan ejercido funciones durante los seis meses anteriores a la fecha de la elección del Presidente de la República ");
         System.out.println(" ");
         System.out.println("1. Si                                         2. No");
@@ -960,6 +970,7 @@ public class Main {
                         +"Superior de Cuentas que hayan ejercido funciones durante los seis meses anteriores a la fecha de la elección del Presidente de la República \n"
                         + "1. Si\n"
                         + "2. No\n"));
+        patron.salir(cargoEjercido);
         /*System.out.println("Es usted un Oficial Jefe o Oficial General de las Fuerzas Armadas? ");
         System.out.println(" ");
         System.out.println("1. Si                                       2. No");
@@ -968,6 +979,7 @@ public class Main {
                 "Es usted un Oficial Jefe o Oficial General de las Fuerzas Armadas?\n"
                         + "1. Si\n"
                         + "2. No\n"));
+        patron.salir(fuerzasArmadasJefes);
         /*System.out.println("Es usted Jefe Superior de las Fuerzas Armadas o cuerpos de Policía o de Seguridad del Estado? ");
         System.out.println(" ");
         System.out.println("1. Si                                       2. No");
@@ -976,6 +988,7 @@ public class Main {
                 "Es usted Jefe Superior de las Fuerzas Armadas o cuerpos de Policía o de Seguridad del Estado?\n"
                         + "1. Si\n"
                         + "2. No\n"));
+        patron.salir(fuerzasArmadasSuperior);
         if(nacimiento == 1 && derechos == 1 && edad >= 29 && cargoEjercido == 2 && fuerzasArmadasJefes == 2 && fuerzasArmadasSuperior == 2){
             //System.out.println("***Felicidades! Usted es elegible a la candidatura de presidencia!***");
             JOptionPane.showMessageDialog(null, "***Felicidades! Usted es elegible a la candidatura de presidencia!***");
@@ -992,6 +1005,7 @@ public class Main {
         int nacimiento, residente=3, edad, alfabeto, educacionMedia,zona,inabilidad;
         String titulo;
         int indiceMunicipio;
+        Administrador patron = new Administrador();
 
         //System.out.println("Bienvenido al punto de elegibilidad para Alcaldia");
         JOptionPane.showMessageDialog(null, "Bienvenido al punto de elegibilidad para Alcaldia");
@@ -1004,10 +1018,12 @@ public class Main {
                 " Es usted Hondureño por nacimiento?:\n"
                         +"1. Si\n"
                         +"2. No\n" ));
+        patron.salir(nacimiento);
         if(nacimiento == 1){
             //System.out.println("Porfavor ingrese su Edad: ");
             //edad = r.nextInt();
             edad = Integer.parseInt(JOptionPane.showInputDialog("Porfavor ingrese su Edad: "));
+            patron.salir(edad);
             //System.out.println("Sabe Leer y Escribir? ");
             //System.out.println("1. Si            2. No");
             //alfabeto = r.nextInt();
@@ -1015,6 +1031,7 @@ public class Main {
                     " Sabe Leer y Escribir?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(alfabeto);
             //System.out.println("Culmino usted su Educacion Media? ");
             //System.out.println("1. Si                        2. No");
             //educacionMedia = r.nextInt();
@@ -1022,6 +1039,7 @@ public class Main {
                     " Culmino usted su Educacion Media?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(educacionMedia);
             //System.out.println("Ha residido usted al menos dos años en el municipio para el cual quiere lanzarse de candidato? ");
             //System.out.println("1. Si                                                                      2. No");
             //zona = r.nextInt();
@@ -1029,6 +1047,7 @@ public class Main {
                     " Ha residido usted al menos dos años en el municipio para el cual quiere lanzarse de candidato?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(zona);
             //System.out.println("Posee usted algun tipo de inabilidad legal? ");
             //System.out.println("1. Si                                  2. No");
             //inabilidad = r.nextInt();
@@ -1036,6 +1055,7 @@ public class Main {
                     " Posee usted algun tipo de inabilidad legal?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(inabilidad);
 
 
 
@@ -1047,9 +1067,11 @@ public class Main {
                     " Ha usted residido en Honduras por mas de 5 años?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(residente);
             //System.out.println("Porfavor ingrese su Edad: ");
             // edad = r.nextInt();
             edad = Integer.parseInt(JOptionPane.showInputDialog("Por favor ingrese su edad: "));
+            patron.salir(edad);
             //System.out.println("Sabe Leer y Escribir? ");
             //System.out.println("1. Si            2. No");
             //alfabeto = r.nextInt();
@@ -1057,6 +1079,7 @@ public class Main {
                     " Sabe Leer y Escribir?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(alfabeto);
             //System.out.println("Culmino usted su Educacion Media? ");
             //System.out.println("1. Si                        2. No");
             //educacionMedia = r.nextInt();
@@ -1064,6 +1087,7 @@ public class Main {
                     " Culmino usted su Educacion Media?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(educacionMedia);
             /*if(educacionMedia == 1){
                 System.out.println("Cual es el Titulo obtenido? ");
                 titulo = r.nextLine();
@@ -1075,6 +1099,7 @@ public class Main {
                     " Ha residido usted al menos dos años en el municipio para el cual quiere lanzarse de candidato?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(zona);
             //System.out.println("Posee usted algun tipo de inabilidad legal? ");
             //System.out.println("1. Si                                  2. No");
             //inabilidad = r.nextInt();
@@ -1082,6 +1107,7 @@ public class Main {
                     " Posee usted algun tipo de inabilidad legal?\n"
                             +"1. Si\n"
                             +"2. No\n" ));
+            patron.salir(inabilidad);
 
         }
 
@@ -1102,6 +1128,7 @@ public class Main {
         Scanner r = new Scanner(System.in);
         boolean elegible = false;
         int nacimiento, edad, seglar, residencia;
+        Administrador patron = new Administrador();
 
         //System.out.println("Bienvenido al punto de elegibilidad para Diputadura");
         //System.out.println("-------------------------------------------------");
@@ -1114,9 +1141,11 @@ public class Main {
                 " Es usted Hondureño por nacimiento?\n"
                         +"1. Si\n"
                         +"2. No\n" ));
+        patron.salir(nacimiento);
         //System.out.println("Porfavor ingrese su Edad: ");
         //edad = r.nextInt();
         edad = Integer.parseInt(JOptionPane.showInputDialog("Por favor ingrese su Edad: "));
+        patron.salir(edad);
         //System.out.println("Es usted del Estado Seglar? ");
         //System.out.println("1. Si                  2. No");
         //seglar = r.nextInt();
@@ -1124,6 +1153,7 @@ public class Main {
                 " Es usted del Estado Seglar?\n"
                         +"1. Si\n"
                         +"2. No\n" ));
+        patron.salir(seglar);
         //System.out.println("Nacio usted en el departamento por el cual se postula o ha residido en el los ultimos cinco años? ");
         //System.out.println("1. Si                  2. No");
         //residencia = r.nextInt();
@@ -1131,6 +1161,7 @@ public class Main {
                 " Nacio usted en el departamento por el cual se postula o ha residido en el los ultimos cinco años?\n"
                         +"1. Si\n"
                         +"2. No\n" ));
+        patron.salir(residencia);
 
         if(nacimiento ==1&&edad>20&&seglar==1&&residencia==1){
             JOptionPane.showMessageDialog(null, "***Felicidades usted es elegible para la Diputadura!***");
@@ -1190,6 +1221,7 @@ public class Main {
                                 + "16. Santa Barbara\n"
                                 + "17. Valle\n"
                                 + "18. Yoro\n"));
+                Patron.salir(indiceDepartamento);
                 if (indiceDepartamento > 0 || indiceDepartamento < 19) {
                     municipalidadPostulada = Departamentos(indiceDepartamento);
                 } else {
@@ -1206,6 +1238,7 @@ public class Main {
                                 + "1. Partido Liberal\n"
                                 + "2. Partido Nacional\n"
                                 + "3. Partido Libertad y Refundacion(Libre)\n"));
+                Patron.salir(partidoPolitico);
                 registrado = revisionPartido(tipo, partidoPolitico, municipalidadPostulada, indiceDepartamento);
                 if (registrado == true) {
                     menuPrincipal();
@@ -1448,6 +1481,7 @@ public class Main {
                 // partidoPolitico = r.nextInt();
                 partidoPolitico = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Partido Politico que representa:\n\n" +
                         "1. Partido Liberal\\t\\t2. Partido Nacional\\t\\t3. Partido Libertad y Refundacion(Libre)"));
+                Patron.salir(partidoPolitico);
                 registrado = revisionPartido(tipo, partidoPolitico, tipoCandidatura, indiceDepartamento);
                 if (registrado == true) {
                     menuPrincipal();
@@ -1708,6 +1742,7 @@ public class Main {
                                 + "16. Santa Barbara\n"
                                 + "17. Valle\n"
                                 + "18. Yoro\n"));
+                Patron.salir(indiceDepartamento);
                 if (indiceDepartamento < 1 || indiceDepartamento > 18) {
                     // System.out.println("***Su eleccion no es valida, Porfavor ingrese el indice de uno de los departamentos***");
                     JOptionPane.showMessageDialog(null, "***Su eleccion no es valida, Porfavor ingrese el indice de uno de los departamentos***");
@@ -2796,7 +2831,7 @@ public class Main {
                         }
 
                     } else{
-                        repetir = false;
+                        repetir = true;
                     }
                 }
 
