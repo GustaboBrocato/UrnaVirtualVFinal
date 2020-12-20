@@ -5,6 +5,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+Integrantes del grupo:
+
+Jefry Alexander Muñoz Interiano #202010120045
+Estefany Abigayl Henriquez #201930060956
+Rodolfo Gabriel Flores Bados #201320010116
+Darwin Danilo Sabillon #202010010044
+Gustavo Brocato #202010030250
+ */
+
+
 public class Main {
 
 
@@ -1480,7 +1491,7 @@ public class Main {
                 // System.out.println("1. Partido Liberal\t\t2. Partido Nacional\t\t3. Partido Libertad y Refundacion(Libre)");
                 // partidoPolitico = r.nextInt();
                 partidoPolitico = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Partido Politico que representa:\n\n" +
-                        "1. Partido Liberal\\t\\t2. Partido Nacional\\t\\t3. Partido Libertad y Refundacion(Libre)"));
+                        "1. Partido Liberal    2. Partido Nacional    3. Partido Libertad y Refundacion(Libre)"));
                 Patron.salir(partidoPolitico);
                 registrado = revisionPartido(tipo, partidoPolitico, tipoCandidatura, indiceDepartamento);
                 if (registrado == true) {
